@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7eeeb">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="誠摯邀請您一同見證我們的重要時刻。">
+  <title>Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page-bg: #efe2de;
+      --paper: #fcf7f5;
+      --paper-2: #f7eeeb;
+      --blush: #e3c4c2;
+      --ink: #4a3036;
+      --muted: #7d5f63;
+      --accent: #a8737b;
+      --accent-dark: #8a5a62;
+      --line: rgba(74, 48, 54, .14);
+      --white: #fff;
+      --shadow: 0 24px 70px rgba(90, 50, 58, .13);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --content-width: 520px;
+      --latin: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+      --serif: "Cormorant Garamond", "Noto Serif TC", "Songti TC", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC",
+              "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: lining-nums;
+    }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    a { color: inherit; }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .35;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .19 0 0 0 0 .21 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ---------- Entrance ---------- */
+    .entrance {
+      position: fixed; inset: 0; z-index: 80;
+      display: grid; place-items: center; padding: 24px;
+      background: radial-gradient(circle at 50% 38%, #fffaf8 0%, var(--paper-2) 55%, var(--page-bg) 100%);
+      transition: opacity .9s ease, visibility .9s ease;
+    }
+    .entrance.is-hidden { opacity: 0; visibility: hidden; }
+    .entrance-card { text-align: center; max-width: 360px; }
+    .entrance-overline, .overline {
+      margin: 0; font-family: var(--latin); font-size: 12px;
+      letter-spacing: .32em; text-transform: uppercase; color: var(--accent);
+    }
+    .entrance-title {
+      margin: 18px 0 10px; font-family: var(--latin); font-weight: 400;
+      font-size: clamp(44px, 13vw, 64px); line-height: 1.05; color: var(--ink);
+    }
+    .amp { color: var(--accent); font-style: italic; padding: 0 .08em; }
+    .entrance-date { margin: 0; font-family: var(--latin); letter-spacing: .24em; color: var(--muted); }
+    .entrance-button, .pill {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: 0; border-radius: 999px; background: var(--accent); color: var(--white);
+      padding: 12px 30px; letter-spacing: .12em; text-decoration: none;
+      transition: background .25s ease, transform .25s ease;
+    }
+    .entrance-button { margin-top: 34px; }
+    .entrance-button:hover, .pill:hover { background: var(--accent-dark); }
+    .entrance-button:active, .pill:active { transform: scale(.97); }
+    .pill.is-ghost { background: transparent; color: var(--accent-dark); box-shadow: inset 0 0 0 1px var(--blush); }
+    .pill.is-ghost:hover { background: var(--paper-2); }
+
+    /* ---------- Layout ---------- */
+    .site-shell {
+      max-width: var(--content-width); margin: 0 auto; background: var(--paper);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .section { padding: 84px 28px; text-align: center; border-top: 1px solid var(--line); }
+    .section:nth-of-type(even) { background: var(--paper-2); }
+    .section-title {
+      margin: 12px 0 28px; font-family: var(--serif); font-weight: 400;
+      font-size: 30px; letter-spacing: .08em; line-height: 1.4;
+    }
+    .divider { width: 42px; height: 1px; margin: 26px auto; background: var(--accent); opacity: .5; }
+
+    /* ---------- Cover ---------- */
+    .cover { position: relative; height: 100svh; min-height: 560px; max-height: 900px; color: var(--white); }
+    .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .cover::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(74,48,54,.08) 0%, rgba(74,48,54,0) 35%, rgba(58,34,40,.45) 58%, rgba(52,30,36,.82) 100%);
+    }
+    .cover-text { position: absolute; inset: auto 0 76px; z-index: 1; text-align: center; padding: 0 20px; }
+    .cover-text .overline { color: rgba(255,255,255,.85); }
+    .cover-names { margin: 12px 0 8px; font-family: var(--latin); font-weight: 400; font-size: clamp(46px, 14vw, 68px); line-height: 1; }
+    .cover-names .amp { color: var(--blush); }
+    .cover-date { margin: 0; font-family: var(--latin); letter-spacing: .28em; font-size: 14px; }
+    .scroll-cue {
+      position: absolute; left: 50%; bottom: 22px; z-index: 1; width: 1px; height: 38px;
+      background: rgba(255,255,255,.7); animation: scrollCue 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollCue {
+      0% { transform: translateX(-50%) scaleY(0); transform-origin: top; }
+      50% { transform: translateX(-50%) scaleY(1); transform-origin: top; }
+      51% { transform-origin: bottom; }
+      100% { transform: translateX(-50%) scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ---------- Invitation ---------- */
+    .invite-date { font-family: var(--latin); font-size: 22px; letter-spacing: .2em; color: var(--accent-dark); margin: 0; }
+    .invite-message { margin: 0; font-family: var(--serif); color: var(--muted); white-space: pre-line; line-height: 2.2; }
+    .families { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
+    .family { padding: 22px 12px; border-radius: var(--radius-md); background: var(--paper-2); }
+    .family dt { font-size: 12px; color: var(--muted); letter-spacing: .15em; }
+    .family dd { margin: 2px 0 14px; font-family: var(--serif); font-size: 16px; }
+    .family dd.is-main { font-size: 20px; margin-bottom: 0; color: var(--accent-dark); }
+
+    /* ---------- Save the date ---------- */
+    .calendar { max-width: 340px; margin: 0 auto; }
+    .calendar-head { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--latin); margin-bottom: 14px; }
+    .calendar-head strong { font-size: 24px; font-weight: 500; }
+    .calendar-head span { color: var(--muted); letter-spacing: .15em; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-family: var(--latin); font-size: 16px; }
+    .calendar-grid .dow { font-size: 11px; letter-spacing: .1em; color: var(--muted); padding-bottom: 6px; }
+    .calendar-grid .day { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; }
+    .calendar-grid .day.is-wedding { background: var(--accent); color: var(--white); position: relative; }
+    .calendar-grid .day.is-wedding::after {
+      content: "♥"; position: absolute; top: -6px; right: -2px; font-size: 11px; color: var(--accent-dark);
+    }
+    .times { margin: 30px 0 0; font-family: var(--serif); }
+    .times p { margin: 0; }
+    .times .main { font-size: 18px; color: var(--accent-dark); }
+    .times .sub { color: var(--muted); }
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 34px; }
+    .countdown div { padding: 14px 4px; border-radius: var(--radius-md); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+    .countdown strong { display: block; font-family: var(--latin); font-weight: 500; font-size: 30px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+    .countdown span { font-size: 10px; letter-spacing: .2em; color: var(--muted); }
+
+    /* ---------- Location ---------- */
+    .venue-name { margin: 0; font-family: var(--serif); font-size: 22px; }
+    .venue-hall { margin: 0; color: var(--accent-dark); font-family: var(--serif); }
+    .venue-address { margin: 14px 0 0; color: var(--muted); white-space: pre-line; }
+    .map-frame { width: 100%; height: 240px; margin-top: 26px; border: 0; border-radius: var(--radius-md); background: var(--paper-2); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
+    .info-block { margin-top: 40px; text-align: left; }
+    .info-block h3 {
+      margin: 0 0 14px; text-align: center; font-family: var(--serif); font-weight: 500; font-size: 18px; letter-spacing: .1em;
+    }
+    .info-card { padding: 16px 18px; border-radius: var(--radius-md); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+    .info-card + .info-card { margin-top: 10px; }
+    .info-card strong { display: block; color: var(--accent-dark); font-weight: 500; }
+    .info-card p { margin: 2px 0 0; color: var(--muted); white-space: pre-line; }
+    .parking-map-button { display: block; width: 100%; margin-top: 16px; padding: 0; border: 0; border-radius: var(--radius-md); overflow: hidden; position: relative; background: none; }
+    .parking-map-button span {
+      position: absolute; right: 10px; bottom: 10px; padding: 2px 12px; border-radius: 999px;
+      background: rgba(252,247,245,.9); font-size: 12px; color: var(--accent-dark);
+    }
+    .note { margin-top: 12px; font-size: 12px; color: var(--muted); text-align: center; }
+
+    /* ---------- Gallery ---------- */
+    .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .gallery-item { padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: var(--blush); aspect-ratio: 3 / 4; }
+    .gallery-item.is-wide { grid-column: span 2; aspect-ratio: 16 / 10; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    /* ---------- Footer ---------- */
+    .footer { padding: 80px 28px 60px; text-align: center; background: var(--accent); color: var(--white); }
+    .footer-mark { margin: 0; font-family: var(--latin); font-size: 42px; font-style: italic; }
+    .footer-thanks { margin: 14px 0 30px; font-family: var(--serif); }
+    .footer .pill { background: rgba(255,255,255,.16); }
+    .footer .pill:hover { background: rgba(255,255,255,.26); }
+    .footer-meta { margin: 34px 0 0; font-family: var(--latin); font-size: 12px; letter-spacing: .24em; opacity: .75; }
+
+    /* ---------- Lightbox / toast ---------- */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px;
+      background: rgba(40, 24, 28, .88); opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease;
+    }
+    .lightbox.is-open { opacity: 1; visibility: visible; }
+    .lightbox img { max-height: 86vh; border-radius: 12px; }
+    .lightbox-close {
+      position: absolute; top: max(16px, env(safe-area-inset-top)); right: 16px;
+      width: 42px; height: 42px; border: 0; border-radius: 50%; background: rgba(255,255,255,.15); color: var(--white); font-size: 22px;
+    }
+    .toast {
+      position: fixed; left: 50%; bottom: max(28px, env(safe-area-inset-bottom)); z-index: 110;
+      transform: translate(-50%, 20px); padding: 10px 22px; border-radius: 999px;
+      background: var(--ink); color: var(--white); font-size: 14px;
+      opacity: 0; pointer-events: none; transition: opacity .3s ease, transform .3s ease;
+    }
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    @media (min-width: 700px) {
+      body { padding: 40px 0; }
+      .site-shell { border-radius: var(--radius-lg); }
+      .cover { height: 780px; }
+    }
+    @media (max-width: 370px) {
+      .section { padding: 68px 18px; }
+      .families { grid-template-columns: 1fr; }
+      .countdown strong { font-size: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="entrance" id="entrance">
+    <div class="entrance-card">
+      <p class="entrance-overline">You are invited to our wedding</p>
+      <h1 class="entrance-title"><span data-bind="groomEn"></span> <span class="amp" aria-hidden="true">&amp;</span> <span data-bind="brideEn"></span></h1>
+      <p class="entrance-date" data-bind="dateShort"></p>
+      <button class="entrance-button" id="openInvitation" type="button">開啟喜帖</button>
+    </div>
+  </div>
+
+  <main class="site-shell">
+    <header class="cover" id="top">
+      <img id="heroImage" src="assets/cover.jpg" alt="婚紗主視覺">
+      <div class="cover-text">
+        <p class="overline">Together with our families</p>
+        <h2 class="cover-names"><span data-bind="groomEn"></span><span class="amp">&amp;</span><span data-bind="brideEn"></span></h2>
+        <p class="cover-date" data-bind="dateDots"></p>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"></div>
+    </header>
+
+    <section class="section">
+      <div class="reveal">
+        <p class="overline">Invitation</p>
+        <h2 class="section-title">我們要結婚了</h2>
+        <p class="invite-date" data-bind="dateIso"></p>
+        <div class="divider"></div>
+        <p class="invite-message" data-bind="message"></p>
+      </div>
+      <div class="families reveal">
+        <dl class="family">
+          <dt>男方家長</dt><dd data-bind="groomParents"></dd>
+          <dt>新郎</dt><dd class="is-main" data-bind="groomZh"></dd>
+        </dl>
+        <dl class="family">
+          <dt>女方家長</dt><dd data-bind="brideParents"></dd>
+          <dt>新娘</dt><dd class="is-main" data-bind="brideZh"></dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="reveal">
+        <p class="overline">Save the date</p>
+        <h2 class="section-title" data-bind="dateLong"></h2>
+        <div class="calendar" aria-label="婚禮月曆">
+          <div class="calendar-head"><strong data-bind="monthName"></strong><span data-bind="year"></span></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        <div class="times">
+          <p class="main"><span data-bind="weekday"></span>, <span data-bind="banquetTime"></span> 開席</p>
+          <p class="sub"><span data-bind="seatingTime"></span> 入席</p>
+        </div>
+      </div>
+      <div class="countdown reveal" aria-label="婚禮倒數">
+        <div><strong id="days">0</strong><span>DAYS</span></div>
+        <div><strong id="hours">00</strong><span>HOURS</span></div>
+        <div><strong id="minutes">00</strong><span>MINUTES</span></div>
+        <div><strong id="seconds">00</strong><span>SECONDS</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="reveal">
+        <p class="overline">Location</p>
+        <h2 class="section-title">婚禮場地</h2>
+        <p class="venue-name" data-bind="venueName"></p>
+        <p class="venue-hall" data-bind="venueHall"></p>
+        <p class="venue-address" data-bind="venueAddress"></p>
+        <iframe class="map-frame" id="mapEmbed" title="婚禮場地 Google 地圖" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="actions">
+          <a class="pill" id="mapsLink" target="_blank" rel="noopener">Google Maps</a>
+          <button class="pill is-ghost" id="copyAddressButton" type="button">複製地址</button>
+        </div>
+      </div>
+      <div class="info-block reveal" id="transportBlock">
+        <h3>如何前往</h3>
+        <div id="transportList"></div>
+      </div>
+      <div class="info-block reveal" id="parkingBlock">
+        <h3>停車資訊</h3>
+        <div id="parkingList"></div>
+        <button class="parking-map-button" id="parkingMapButton" type="button" aria-label="放大停車位置圖">
+          <img id="parkingMapImage" src="assets/parking-map.jpg" alt="停車位置圖" loading="lazy">
+          <span>點擊放大</span>
+        </button>
+        <p class="note">實際入口、營業時間與收費資訊，請以各停車場現場公告為準。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="reveal">
+        <p class="overline">Our moments</p>
+        <h2 class="section-title">Gallery</h2>
+      </div>
+      <div class="gallery reveal" id="gallery"></div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-mark"><span data-bind="groomInitial"></span> &amp; <span data-bind="brideInitial"></span></p>
+      <p class="footer-thanks">謝謝你參與我們人生中重要的一天</p>
+      <div class="actions">
+        <a class="pill" href="#top">回到頂端</a>
+        <button class="pill" id="shareButton" type="button">分享喜帖</button>
+      </div>
+      <p class="footer-meta"><span data-bind="dateLongUpper"></span> · <span data-bind="coupleUpper"></span></p>
+    </footer>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片檢視">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="關閉">×</button>
+    <img id="lightboxImage" alt="">
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (async () => {
+      "use strict";
+
+      // ========================================================
+      // 喜帖內容請修改 input/inputDetailed.json；這裡只是預設值
+      // ========================================================
+      const DEFAULTS = {
+        weddingDate: "2027-05-01T12:00",
+        seatingTime: "11:30 AM",
+        groom: { en: "Groom", zh: "新郎姓名", parents: "男方父親・男方母親" },
+        bride: { en: "Bride", zh: "新娘姓名", parents: "女方父親・女方母親" },
+        message: "無數個平凡的日子，累積成最珍貴的時光。\n我們決定牽起彼此的手，走向人生新的篇章，\n誠摯邀請您，一同見證這份幸福。",
+        venue: { name: "婚宴會館名稱", hall: "", address: "", addressNote: "", mapUrl: "" },
+        transport: [],
+        parking: [],
+        hasParkingMap: false,
+        share: { title: "Wedding Invitation", text: "誠摯邀請你參加我們的婚禮。" }
+      };
+
+      // 版面設定
+      const GALLERY = [
+        "assets/gallery-1.jpg",
+        "assets/gallery-2.jpg",
+        "assets/gallery-3.jpg",
+        "assets/gallery-4.jpg",
+        "assets/gallery-5.jpg",
+        "assets/gallery-6.jpg"
+      ];
+      const WIDE_GALLERY_INDEXES = [2, 5]; // 第 3、6 張為橫幅（跨兩欄）；其餘直式兩兩一排
+
+      async function loadInput() {
+        try {
+          const response = await fetch("input/inputDetailed.json", { cache: "no-cache" });
+          if (!response.ok) throw new Error(response.statusText);
+          return await response.json();
+        } catch (error) {
+          console.warn("無法讀取 input/inputDetailed.json，使用預設內容", error);
+          return {};
+        }
+      }
+
+      // 空字串視為未填，沿用預設值
+      const pick = (value, fallback) => (value === undefined || value === null || value === "" ? fallback : value);
+      const input = await loadInput();
+      const CONFIG = {
+        weddingDate: pick(input.weddingDate, DEFAULTS.weddingDate),
+        seatingTime: pick(input.seatingTime, DEFAULTS.seatingTime),
+        groom: Object.fromEntries(Object.keys(DEFAULTS.groom).map((k) => [k, pick(input.groom?.[k], DEFAULTS.groom[k])])),
+        bride: Object.fromEntries(Object.keys(DEFAULTS.bride).map((k) => [k, pick(input.bride?.[k], DEFAULTS.bride[k])])),
+        message: pick(input.message, DEFAULTS.message),
+        venue: Object.fromEntries(Object.keys(DEFAULTS.venue).map((k) => [k, pick(input.venue?.[k], DEFAULTS.venue[k])])),
+        transport: (input.transport ?? DEFAULTS.transport).filter((item) => item.detail),
+        parking: (input.parking ?? DEFAULTS.parking)
+          .map((item) => (typeof item === "string" ? { title: item, detail: "" } : item))
+          .filter((item) => item.title || item.detail),
+        hasParkingMap: String(pick(input.hasParkingMap, DEFAULTS.hasParkingMap)) === "true",
+        shareTitle: pick(input.share?.title, DEFAULTS.share.title),
+        shareText: pick(input.share?.text, DEFAULTS.share.text)
+      };
+      // 未指定時區時視為台灣時間
+      if (!/(Z|[+-]\d{2}:?\d{2})$/.test(CONFIG.weddingDate)) CONFIG.weddingDate += "+08:00";
+
+      const $ = (selector, parent = document) => parent.querySelector(selector);
+      const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+
+      // ---------- 將 CONFIG 填入頁面 ----------
+      const date = new Date(CONFIG.weddingDate);
+      const tz = "Asia/Taipei";
+      const fmt = (options) => new Intl.DateTimeFormat("en-US", { timeZone: tz, ...options }).format(date);
+      const parts = Object.fromEntries(
+        new Intl.DateTimeFormat("en-US", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" })
+          .formatToParts(date).map(({ type, value }) => [type, value])
+      );
+      const coupleEn = `${CONFIG.groom.en} & ${CONFIG.bride.en}`;
+
+      const bindings = {
+        groomEn: CONFIG.groom.en,
+        brideEn: CONFIG.bride.en,
+        groomZh: CONFIG.groom.zh,
+        brideZh: CONFIG.bride.zh,
+        groomParents: CONFIG.groom.parents,
+        brideParents: CONFIG.bride.parents,
+        groomInitial: CONFIG.groom.en.charAt(0),
+        brideInitial: CONFIG.bride.en.charAt(0),
+        coupleUpper: coupleEn.toUpperCase(),
+        message: CONFIG.message,
+        dateShort: fmt({ month: "short", day: "2-digit", year: "numeric" }).toUpperCase().replace(",", " ·"),
+        dateDots: `${fmt({ weekday: "long" }).toUpperCase()} · ${parts.month} · ${parts.day} · ${parts.year}`,
+        dateIso: `${parts.year}.${parts.month}.${parts.day}`,
+        dateLong: fmt({ month: "long", day: "numeric", year: "numeric" }),
+        dateLongUpper: fmt({ month: "long", day: "numeric", year: "numeric" }).toUpperCase(),
+        monthName: fmt({ month: "long" }),
+        year: parts.year,
+        weekday: fmt({ weekday: "long" }),
+        banquetTime: fmt({ hour: "numeric", minute: "2-digit" }),
+        seatingTime: CONFIG.seatingTime,
+        venueName: CONFIG.venue.name,
+        venueHall: CONFIG.venue.hall,
+        venueAddress: [CONFIG.venue.address, CONFIG.venue.addressNote].filter(Boolean).join("\n")
+      };
+      $$("[data-bind]").forEach((node) => { node.textContent = bindings[node.dataset.bind] ?? ""; });
+      document.title = `${coupleEn} — Wedding Invitation`;
+
+      // 月曆
+      const year = Number(parts.year);
+      const monthIndex = Number(parts.month) - 1;
+      const weddingDay = Number(parts.day);
+      const calendarGrid = $("#calendarGrid");
+      const firstDow = new Date(year, monthIndex, 1).getDay();
+      const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+      const cells = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d) => `<span class="dow">${d}</span>`);
+      for (let i = 0; i < firstDow; i++) cells.push("<span></span>");
+      for (let d = 1; d <= daysInMonth; d++) {
+        cells.push(`<span class="day${d === weddingDay ? " is-wedding" : ""}">${d}</span>`);
+      }
+      calendarGrid.innerHTML = cells.join("");
+
+      // 地圖
+      const encodedAddress = encodeURIComponent(`${CONFIG.venue.name} ${CONFIG.venue.address}`);
+      $("#mapEmbed").src = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+      $("#mapsLink").href = CONFIG.venue.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+
+      // 交通、停車
+      const escapeHtml = (value) => String(value)
+        .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+
+      const infoCards = (items) => items.map(({ title, detail }) =>
+        `<div class="info-card"><strong>${escapeHtml(title ?? "")}</strong>${detail ? `<p>${escapeHtml(detail)}</p>` : ""}</div>`
+      ).join("");
+
+      if (CONFIG.transport.length) {
+        $("#transportList").innerHTML = infoCards(CONFIG.transport);
+      } else {
+        $("#transportBlock").remove();
+      }
+      if (CONFIG.parking.length) {
+        $("#parkingList").innerHTML = infoCards(CONFIG.parking);
+      } else {
+        $("#parkingBlock").remove();
+      }
+      if (!CONFIG.hasParkingMap) $("#parkingMapButton")?.remove();
+
+      // 相簿
+      $("#gallery").innerHTML = GALLERY.map((src, index) => `
+        <button class="gallery-item${WIDE_GALLERY_INDEXES.includes(index) ? " is-wide" : ""}" type="button" aria-label="放大照片 ${index + 1}">
+          <img src="${escapeHtml(src)}" alt="婚紗照 ${index + 1}" loading="lazy">
+        </button>`).join("");
+
+      // ---------- 圖片不存在時顯示佔位圖 ----------
+      function placeholderDataUri(label, portrait = true, title = coupleEn.toUpperCase()) {
+        const width = portrait ? 1200 : 1600;
+        const height = portrait ? 1600 : 1000;
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f3e2df"/>
+                <stop offset=".55" stop-color="#e3c4c2"/>
+                <stop offset="1" stop-color="#b98b91"/>
+              </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#g)"/>
+            <circle cx="${width * .2}" cy="${height * .2}" r="${width * .25}" fill="#fff" opacity=".14"/>
+            <circle cx="${width * .82}" cy="${height * .78}" r="${width * .3}" fill="#fff" opacity=".1"/>
+            <text x="50%" y="48%" dominant-baseline="middle" text-anchor="middle" fill="#fff" opacity=".95"
+                  font-family="Georgia,serif" font-size="${width * .055}" letter-spacing="${width * .008}">
+              ${escapeHtml(title)}
+            </text>
+            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#fff" opacity=".7"
+                  font-family="Arial,sans-serif" font-size="${width * .018}" letter-spacing="${width * .006}">
+              ${escapeHtml(label)}
+            </text>
+          </svg>`;
+        return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      }
+
+      function withFallback(img, label, portrait, title) {
+        const fallback = () => { img.src = placeholderDataUri(label, portrait, title); };
+        img.addEventListener("error", fallback, { once: true });
+        if (img.complete && img.naturalWidth === 0) fallback();
+      }
+      withFallback($("#heroImage"), "HERO PHOTO", true, "");
+      $$(".gallery-item img").forEach((img, index) =>
+        withFallback(img, `PHOTO ${String(index + 1).padStart(2, "0")}`, !WIDE_GALLERY_INDEXES.includes(index)));
+      const parkingMapImage = $("#parkingMapImage");
+      if (parkingMapImage) withFallback(parkingMapImage, "PARKING MAP", false);
+
+      // ---------- 開場 ----------
+      const entrance = $("#entrance");
+      document.body.style.overflow = "hidden";
+      $("#openInvitation").addEventListener("click", () => {
+        entrance.classList.add("is-hidden");
+        document.body.style.overflow = "";
+      });
+
+      // ---------- 淡入動畫 ----------
+      const revealElements = $$(".reveal");
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .13, rootMargin: "0px 0px -35px" });
+        revealElements.forEach((element) => observer.observe(element));
+      } else {
+        revealElements.forEach((element) => element.classList.add("is-visible"));
+      }
+
+      // ---------- 倒數 ----------
+      const countdownNodes = { days: $("#days"), hours: $("#hours"), minutes: $("#minutes"), seconds: $("#seconds") };
+      function updateCountdown() {
+        const total = Math.max(0, Math.floor((date.getTime() - Date.now()) / 1000));
+        countdownNodes.days.textContent = String(Math.floor(total / 86400));
+        countdownNodes.hours.textContent = String(Math.floor((total % 86400) / 3600)).padStart(2, "0");
+        countdownNodes.minutes.textContent = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
+        countdownNodes.seconds.textContent = String(total % 60).padStart(2, "0");
+      }
+      updateCountdown();
+      window.setInterval(updateCountdown, 1000);
+
+      // ---------- Lightbox ----------
+      const lightbox = $("#lightbox");
+      const lightboxImage = $("#lightboxImage");
+      const lightboxClose = $("#lightboxClose");
+      let lastFocusedElement = null;
+
+      function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        lightboxImage.removeAttribute("src");
+        document.body.style.overflow = "";
+        lastFocusedElement?.focus();
+      }
+      $$(".gallery-item, .parking-map-button").forEach((item) => {
+        item.addEventListener("click", () => {
+          const image = $("img", item);
+          lastFocusedElement = item;
+          lightboxImage.src = image.src;
+          lightboxImage.alt = image.alt;
+          lightbox.classList.add("is-open");
+          document.body.style.overflow = "hidden";
+          lightboxClose.focus();
+        });
+      });
+      lightboxClose.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
+      });
+
+      // ---------- Toast / 複製 / 分享 ----------
+      const toast = $("#toast");
+      let toastTimer;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          textarea.remove();
+        }
+      }
+
+      $("#copyAddressButton").addEventListener("click", async () => {
+        await copyText(CONFIG.venue.address);
+        showToast("地址已複製");
+      });
+
+      $("#shareButton").addEventListener("click", async () => {
+        const shareData = { title: CONFIG.shareTitle, text: CONFIG.shareText, url: window.location.href };
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else {
+            await copyText(window.location.href);
+            showToast("喜帖網址已複製");
+          }
+        } catch (error) {
+          if (error?.name !== "AbortError") showToast("分享未完成，請稍後再試");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "_guide": {
+    "weddingDate": "開席日期時間，格式 YYYY-MM-DDTHH:MM，例：2027-05-01T12:00",
+    "seatingTime": "入席時間，例：11:30 AM",
+    "groom / bride": "en = 英文名（封面大字）；zh = 中文全名；parents = 父母姓名，用「・」分隔",
+    "message": "邀請文案，換行請用 \\n；留空則使用預設文案",
+    "venue": "address 用於 Google 地圖與「複製地址」；mapUrl 為 Google Maps 連結（可留空，會用地址搜尋）",
+    "transport": "每種交通方式一筆，可增減；detail 內換行用 \\n",
+    "parking": "每個停車場一筆，可增減；若沒有請留 []",
+    "hasParkingMap": "有停車位置圖（assets/parking-map.jpg）填 true，沒有填 false",
+    "share": "按下「分享喜帖」時帶出的標題與文字"
+  },
+
+  "weddingDate": "2026-12-12T12:00",
+  "seatingTime": "11:30 AM",
+
+  "groom": {
+    "en": "David",
+    "zh": "林沅融",
+    "parents": "周英伶"
+  },
+  "bride": {
+    "en": "Grace",
+    "zh": "陳韻竹",
+    "parents": "陳錫源・林淑惠"
+  },
+
+  "message": "",
+
+  "venue": {
+    "name": "萊特薇庭 LIGHT WEDDING",
+    "hall": "8F",
+    "address": "台中市西屯區龍富路五段396號",
+    "addressNote": "",
+    "mapUrl": "https://maps.app.goo.gl/pzZQmrNGz785TA3LA"
+  },
+
+  "transport": [
+    {
+      "title": "高鐵 路線一",
+      "detail": "搭乘高鐵接駁車 155 號 ＞ 市政黎明路口下車\n＞ 往黎明路走 ＞ 左轉直行 200 公尺"
+    },
+    {
+      "title": "高鐵 路線二",
+      "detail": "搭乘高鐵接駁車 160 號 ＞ 黎明新村（黎明路）下車\n＞ 往市政南二路方向走 ＞ 左轉市政南一路\n＞ 右轉龍富路五段即可抵達"
+    }
+  ],
+
+  "parking": [
+    { "title": "平面停車場", "detail": "會場緊鄰平面停車場，提供 100 個停車位。" },
+    { "title": "路邊停車", "detail": "會場週邊 5 分鐘步行範圍內，擁有近 400 個停車格線，車位充足。" }
+  ],
+  "hasParkingMap": false,
+
+  "share": {
+    "title": "David & Grace Wedding Invitation",
+    "text": "誠摯邀請你參加 David & Grace 的婚禮。"
+  }
+}
