@@ -47,8 +47,12 @@ python3 -m venv .venv
 
 ## 部署
 
-預計部署到 AI Builder Space（Koyeb）：
+預計部署到 AI Builder Space（Koyeb），部署管理頁面：https://space.ai-builders.com/deployments
 
 - 需要公開的 GitHub repo
 - 單一程序、單一 port，並讀取 `PORT` 環境變數（`main.py` 已處理）
 - API key 請放在環境變數，不要寫進 repo
+
+## 參考
+
+- 版面架構參考同事的電子喜帖：https://wedding-invitation.mouse31620.workers.dev/
