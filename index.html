@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f7eeeb">
+  <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="誠摯邀請您一同見證我們的重要時刻。">
   <title>Wedding Invitation</title>
@@ -12,9 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --page-bg: #efe2de;
-      --paper: #fcf7f5;
-      --paper-2: #f7eeeb;
+      --page-bg: #f3f4f2;
+      --paper: #ffffff;
+      --paper-2: #f8f9f7;
       --blush: #e3c4c2;
       --ink: #4a3036;
       --muted: #7d5f63;
@@ -49,15 +49,15 @@
     a { color: inherit; }
 
     .grain {
-      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .35;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .19 0 0 0 0 .21 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .2;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .25 0 0 0 0 .25 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     /* ---------- Entrance ---------- */
     .entrance {
       position: fixed; inset: 0; z-index: 80;
       display: grid; place-items: center; padding: 24px;
-      background: radial-gradient(circle at 50% 38%, #fffaf8 0%, var(--paper-2) 55%, var(--page-bg) 100%);
+      background: radial-gradient(circle at 50% 38%, #ffffff 0%, var(--paper-2) 55%, var(--page-bg) 100%);
       transition: opacity .9s ease, visibility .9s ease;
     }
     .entrance.is-hidden { opacity: 0; visibility: hidden; }
@@ -167,7 +167,7 @@
     .parking-map-button { display: block; width: 100%; margin-top: 16px; padding: 0; border: 0; border-radius: var(--radius-md); overflow: hidden; position: relative; background: none; }
     .parking-map-button span {
       position: absolute; right: 10px; bottom: 10px; padding: 2px 12px; border-radius: 999px;
-      background: rgba(252,247,245,.9); font-size: 12px; color: var(--accent-dark);
+      background: rgba(255,255,255,.9); font-size: 12px; color: var(--accent-dark);
     }
     .note { margin-top: 12px; font-size: 12px; color: var(--muted); text-align: center; }
 
