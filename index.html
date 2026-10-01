@@ -18,8 +18,8 @@
       --blush: #e3c4c2;
       --ink: #4a3036;
       --muted: #7d5f63;
-      --accent: #a8737b;
-      --accent-dark: #8a5a62;
+      --accent: #c8a3a7;
+      --accent-dark: #a8737b;
       --line: rgba(74, 48, 54, .14);
       --white: #fff;
       --shadow: 0 24px 70px rgba(90, 50, 58, .13);
@@ -66,7 +66,7 @@
     .entrance-card { text-align: center; max-width: 360px; }
     .entrance-overline, .overline {
       margin: 0; font-family: var(--latin); font-weight: 600; font-size: 12px;
-      letter-spacing: .32em; text-transform: uppercase; color: var(--accent);
+      letter-spacing: .32em; text-transform: uppercase; color: var(--accent-dark);
     }
     .entrance-title {
       margin: 18px 0 10px; font-family: var(--display); font-weight: 400;
@@ -76,14 +76,15 @@
     .entrance-date { margin: 0; font-family: var(--latin); font-weight: 500; letter-spacing: .24em; color: var(--muted); }
     .entrance-button, .pill {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      border: 0; border-radius: 999px; background: var(--accent); color: var(--white);
+      border: 0; border-radius: 999px; background: var(--accent-dark); color: var(--white);
       padding: 12px 30px; letter-spacing: .12em; text-decoration: none;
+      text-shadow: 0 1px 3px rgba(74, 48, 54, .4);
       transition: background .25s ease, transform .25s ease;
     }
     .entrance-button { margin-top: 34px; }
-    .entrance-button:hover, .pill:hover { background: var(--accent-dark); }
+    .entrance-button:hover, .pill:hover { background: #8a5a62; }
     .entrance-button:active, .pill:active { transform: scale(.97); }
-    .pill.is-ghost { background: transparent; color: var(--accent-dark); box-shadow: inset 0 0 0 1px var(--blush); }
+    .pill.is-ghost { background: transparent; color: var(--accent-dark); box-shadow: inset 0 0 0 1px var(--blush); text-shadow: none; }
     .pill.is-ghost:hover { background: var(--paper-2); }
 
     /* ---------- Layout ---------- */
@@ -91,7 +92,7 @@
       max-width: var(--content-width); margin: 0 auto; background: var(--paper-2);
       box-shadow: var(--shadow); overflow: hidden;
     }
-    .section { padding: 84px 28px; text-align: center; border-top: 1px solid var(--line); }
+    .section { padding: 56px 28px; text-align: center; border-top: 1px solid var(--line); }
     .section:nth-of-type(even) { background: var(--paper-2); }
     .section-title {
       margin: 12px 0 28px; font-family: var(--serif); font-weight: 400;
@@ -151,7 +152,7 @@
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-family: var(--latin); font-weight: 500; font-size: 16px; }
     .calendar-grid .dow { font-size: 11px; letter-spacing: .1em; color: var(--muted); padding-bottom: 6px; }
     .calendar-grid .day { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; }
-    .calendar-grid .day.is-wedding { background: var(--accent); color: var(--white); position: relative; }
+    .calendar-grid .day.is-wedding { background: var(--accent); color: var(--white); position: relative; text-shadow: 0 1px 3px rgba(74, 48, 54, .4); }
     .calendar-grid .day.is-wedding::after {
       content: "♥"; position: absolute; top: -6px; right: -2px; font-size: 11px; color: var(--accent-dark);
     }
@@ -165,6 +166,12 @@
     .countdown span { font-size: 10px; letter-spacing: .2em; color: var(--muted); }
 
     /* ---------- Location ---------- */
+    /* 「婚禮場地」標題用場地照片當背景 */
+    .venue-title {
+      padding: 64px 16px; border-radius: var(--radius-md); color: var(--white); letter-spacing: .2em;
+      background: linear-gradient(rgba(58, 34, 40, .28), rgba(58, 34, 40, .42)), url("assets/venue.jpg") center / cover;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+    }
     .venue-name { margin: 0; font-family: var(--serif); font-size: 22px; }
     .venue-hall { margin: 0; color: var(--accent-dark); font-family: var(--serif); }
     .venue-address { margin: 14px 0 0; color: var(--muted); white-space: pre-line; }
@@ -193,12 +200,10 @@
     .gallery-item:hover img { transform: scale(1.04); }
 
     /* ---------- Footer ---------- */
-    .footer { padding: 80px 28px 60px; text-align: center; background: var(--accent); color: var(--white); }
+    .footer { padding: 80px 28px 60px; text-align: center; background: var(--paper-2); color: var(--ink); border-top: 1px solid var(--line); }
     .footer-mark { margin: 0; font-family: var(--display); font-size: 42px; font-style: italic; }
     .footer-thanks { margin: 14px 0 30px; font-family: var(--serif); }
-    .footer .pill { background: rgba(255,255,255,.16); }
-    .footer .pill:hover { background: rgba(255,255,255,.26); }
-    .footer-meta { margin: 34px 0 0; font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; opacity: .75; }
+    .footer-meta { margin: 34px 0 0; font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; color: var(--muted); }
 
     /* ---------- Lightbox / toast ---------- */
     .lightbox {
@@ -232,7 +237,7 @@
       .cover { height: 780px; }
     }
     @media (max-width: 370px) {
-      .section { padding: 68px 18px; }
+      .section { padding: 48px 18px; }
       .families { grid-template-columns: 1fr; }
       .countdown strong { font-size: 24px; }
     }
@@ -312,7 +317,7 @@
     <section class="section">
       <div class="reveal">
         <p class="overline">Location</p>
-        <h2 class="section-title">婚禮場地</h2>
+        <h2 class="section-title venue-title">婚禮場地</h2>
         <p class="venue-name" data-bind="venueName"></p>
         <p class="venue-hall" data-bind="venueHall"></p>
         <p class="venue-address" data-bind="venueAddress"></p>
@@ -353,7 +358,7 @@
       <p class="footer-mark"><span data-bind="groomInitial"></span> &amp; <span data-bind="brideInitial"></span></p>
       <p class="footer-thanks">謝謝你參與我們人生中重要的一天</p>
       <div class="actions">
-        <a class="pill" href="#top">回到頂端</a>
+        <a class="pill is-ghost" href="#top">回到頂端</a>
         <button class="pill" id="shareButton" type="button">分享喜帖</button>
       </div>
       <p class="footer-meta"><span data-bind="dateLongUpper"></span> · <span data-bind="coupleUpper"></span></p>
