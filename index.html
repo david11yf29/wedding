@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f8f9f7">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="誠摯邀請您一同見證我們的重要時刻。">
   <title>Wedding Invitation</title>
@@ -59,7 +59,7 @@
     .entrance {
       position: fixed; inset: 0; z-index: 80;
       display: grid; place-items: center; padding: 24px;
-      background: radial-gradient(circle at 50% 38%, #ffffff 0%, var(--paper-2) 55%, var(--page-bg) 100%);
+      background: radial-gradient(circle at 50% 38%, var(--paper-2) 0%, var(--paper-2) 55%, var(--page-bg) 100%);
       transition: opacity .9s ease, visibility .9s ease;
     }
     .entrance.is-hidden { opacity: 0; visibility: hidden; }
@@ -88,7 +88,7 @@
 
     /* ---------- Layout ---------- */
     .site-shell {
-      max-width: var(--content-width); margin: 0 auto; background: var(--paper);
+      max-width: var(--content-width); margin: 0 auto; background: var(--paper-2);
       box-shadow: var(--shadow); overflow: hidden;
     }
     .section { padding: 84px 28px; text-align: center; border-top: 1px solid var(--line); }
@@ -135,10 +135,13 @@
     .invite-date { font-family: var(--latin); font-weight: 500; font-size: 22px; letter-spacing: .2em; color: var(--accent-dark); margin: 0; }
     .invite-message { margin: 0; font-family: var(--serif); color: var(--muted); white-space: pre-line; line-height: 2.2; }
     .families { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
-    .family { padding: 22px 12px; border-radius: var(--radius-md); background: var(--paper-2); }
-    .family dt { font-size: 12px; color: var(--muted); letter-spacing: .15em; }
-    .family dd { margin: 2px 0 14px; font-family: var(--serif); font-size: 16px; }
-    .family dd.is-main { font-size: 20px; margin-bottom: 0; color: var(--accent-dark); }
+    /* 家長在框外、框內只放新郎／新娘 */
+    .family-col { display: flex; flex-direction: column; gap: 14px; }
+    .parents, .family { margin: 0; }
+    .parents dt, .family dt { font-size: 12px; color: var(--muted); letter-spacing: .15em; }
+    .parents dd { margin: 2px 0 0; font-size: 16px; }
+    .family { padding: 20px 12px; border-radius: var(--radius-md); background: var(--paper); }
+    .family dd { margin: 2px 0 0; font-size: 20px; color: var(--accent-dark); }
 
     /* ---------- Save the date ---------- */
     .calendar { max-width: 340px; margin: 0 auto; }
@@ -216,9 +219,12 @@
     }
     .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
-    /* ---------- Reveal ---------- */
-    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
-    .reveal.is-visible { opacity: 1; transform: none; }
+    /* ---------- Reveal：捲到該區時，內容逐一由下往上進入 ---------- */
+    .reveal-item {
+      opacity: 0; transform: translateY(48px);
+      transition: opacity .8s ease, transform 1s cubic-bezier(.2, .7, .2, 1);
+    }
+    .reveal.is-visible .reveal-item { opacity: 1; transform: none; }
 
     @media (min-width: 700px) {
       body { padding: 40px 0; }
@@ -232,7 +238,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
-      .reveal { opacity: 1; transform: none; }
+      .reveal-item { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -271,14 +277,14 @@
         <p class="invite-message" data-bind="message"></p>
       </div>
       <div class="families reveal">
-        <dl class="family">
-          <dt>男方家長</dt><dd data-bind="groomParents"></dd>
-          <dt>新郎</dt><dd class="is-main" data-bind="groomZh"></dd>
-        </dl>
-        <dl class="family">
-          <dt>女方家長</dt><dd data-bind="brideParents"></dd>
-          <dt>新娘</dt><dd class="is-main" data-bind="brideZh"></dd>
-        </dl>
+        <div class="family-col">
+          <dl class="parents"><dt>男方家長</dt><dd data-bind="groomParents"></dd></dl>
+          <dl class="family"><dt>新郎</dt><dd class="is-main" data-bind="groomZh"></dd></dl>
+        </div>
+        <div class="family-col">
+          <dl class="parents"><dt>女方家長</dt><dd data-bind="brideParents"></dd></dl>
+          <dl class="family"><dt>新娘</dt><dd class="is-main" data-bind="brideZh"></dd></dl>
+        </div>
       </div>
     </section>
 
@@ -319,6 +325,10 @@
       <div class="info-block reveal" id="transportBlock">
         <h3>如何前往</h3>
         <div id="transportList"></div>
+      </div>
+      <div class="info-block reveal" id="drivingBlock">
+        <h3>行車路線</h3>
+        <div id="drivingList"></div>
       </div>
       <div class="info-block reveal" id="parkingBlock">
         <h3>停車資訊</h3>
@@ -370,6 +380,7 @@
         message: "無數個平凡的日子，累積成最珍貴的時光。\n我們決定牽起彼此的手，走向人生新的篇章，\n誠摯邀請您，一同見證這份幸福。",
         venue: { name: "婚宴會館名稱", hall: "", address: "", addressNote: "", mapUrl: "" },
         transport: [],
+        driving: [],
         parking: [],
         hasParkingMap: false,
         share: { title: "Wedding Invitation", text: "誠摯邀請你參加我們的婚禮。" }
@@ -408,6 +419,7 @@
         message: pick(input.message, DEFAULTS.message),
         venue: Object.fromEntries(Object.keys(DEFAULTS.venue).map((k) => [k, pick(input.venue?.[k], DEFAULTS.venue[k])])),
         transport: (input.transport ?? DEFAULTS.transport).filter((item) => item.detail),
+        driving: (input.driving ?? DEFAULTS.driving).filter((item) => item.detail),
         parking: (input.parking ?? DEFAULTS.parking)
           .map((item) => (typeof item === "string" ? { title: item, detail: "" } : item))
           .filter((item) => item.title || item.detail),
@@ -492,6 +504,11 @@
       } else {
         $("#transportBlock").remove();
       }
+      if (CONFIG.driving.length) {
+        $("#drivingList").innerHTML = infoCards(CONFIG.driving);
+      } else {
+        $("#drivingBlock").remove();
+      }
       if (CONFIG.parking.length) {
         $("#parkingList").innerHTML = infoCards(CONFIG.parking);
       } else {
@@ -552,8 +569,14 @@
         document.body.style.overflow = "";
       });
 
-      // ---------- 淡入動畫 ----------
+      // ---------- 由下往上進入 ----------
       const revealElements = $$(".reveal");
+      revealElements.forEach((block) => {
+        [...block.children].forEach((child, index) => {
+          child.classList.add("reveal-item");
+          child.style.transitionDelay = `${index * 120}ms`;
+        });
+      });
       if ("IntersectionObserver" in window) {
         const observer = new IntersectionObserver((entries, obs) => {
           entries.forEach((entry) => {
