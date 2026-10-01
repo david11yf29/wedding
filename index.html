@@ -9,7 +9,7 @@
   <title>Wedding Invitation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Huninn&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --page-bg: #f3f4f2;
@@ -26,10 +26,12 @@
       --radius-lg: 16px;
       --radius-md: 18px;
       --content-width: 520px;
-      --latin: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-      --serif: "Cormorant Garamond", "Noto Serif TC", "Songti TC", Georgia, serif;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC",
-              "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      /* 新人英文名用襯線字；其餘英文、數字用 Quicksand 圓體，中文用粉圓體 Huninn */
+      --display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+      --latin: "Quicksand", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      --serif: "Quicksand", "Huninn", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      --sans: "Quicksand", "Huninn", -apple-system, BlinkMacSystemFont, "PingFang TC",
+              "Microsoft JhengHei", Arial, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -63,15 +65,15 @@
     .entrance.is-hidden { opacity: 0; visibility: hidden; }
     .entrance-card { text-align: center; max-width: 360px; }
     .entrance-overline, .overline {
-      margin: 0; font-family: var(--latin); font-size: 12px;
+      margin: 0; font-family: var(--latin); font-weight: 600; font-size: 12px;
       letter-spacing: .32em; text-transform: uppercase; color: var(--accent);
     }
     .entrance-title {
-      margin: 18px 0 10px; font-family: var(--latin); font-weight: 400;
+      margin: 18px 0 10px; font-family: var(--display); font-weight: 400;
       font-size: clamp(44px, 13vw, 64px); line-height: 1.05; color: var(--ink);
     }
     .amp { color: var(--accent); font-style: italic; padding: 0 .08em; }
-    .entrance-date { margin: 0; font-family: var(--latin); letter-spacing: .24em; color: var(--muted); }
+    .entrance-date { margin: 0; font-family: var(--latin); font-weight: 500; letter-spacing: .24em; color: var(--muted); }
     .entrance-button, .pill {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       border: 0; border-radius: 999px; background: var(--accent); color: var(--white);
@@ -110,14 +112,14 @@
     }
     .cover-label {
       position: absolute; top: 30px; left: 30px; z-index: 1; margin: 0;
-      font-family: var(--latin); font-size: 11px; letter-spacing: .3em; color: rgba(255, 255, 255, .9);
-      text-shadow: 0 1px 6px rgba(0, 0, 0, .25);
+      font-family: var(--latin); font-size: 13px; font-weight: 600; letter-spacing: .3em; color: var(--white);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
     }
     .cover-text { position: absolute; inset: auto 0 76px; z-index: 1; text-align: center; padding: 0 20px; }
-    .cover-text .overline { color: rgba(255,255,255,.85); }
-    .cover-names { margin: 12px 0 8px; font-family: var(--latin); font-weight: 400; font-size: clamp(46px, 14vw, 68px); line-height: 1; }
+    .cover-text .overline { font-family: var(--latin); font-size: 14px; letter-spacing: .24em; color: var(--white); font-weight: 600; text-shadow: 0 1px 8px rgba(0, 0, 0, .45); }
+    .cover-names { margin: 12px 0 8px; font-family: var(--display); font-weight: 400; font-size: clamp(46px, 14vw, 68px); line-height: 1; }
     .cover-names .amp { color: var(--blush); }
-    .cover-date { margin: 0; font-family: var(--latin); letter-spacing: .28em; font-size: 14px; }
+    .cover-date { margin: 0; font-family: var(--latin); font-weight: 600; letter-spacing: .28em; font-size: 16px; text-shadow: 0 1px 8px rgba(0, 0, 0, .45); }
     /* 底部與白色細框相連，從框線往上伸縮 */
     .scroll-cue {
       position: absolute; left: 50%; bottom: 14px; z-index: 1; width: 1px; height: 24px;
@@ -130,7 +132,7 @@
     }
 
     /* ---------- Invitation ---------- */
-    .invite-date { font-family: var(--latin); font-size: 22px; letter-spacing: .2em; color: var(--accent-dark); margin: 0; }
+    .invite-date { font-family: var(--latin); font-weight: 500; font-size: 22px; letter-spacing: .2em; color: var(--accent-dark); margin: 0; }
     .invite-message { margin: 0; font-family: var(--serif); color: var(--muted); white-space: pre-line; line-height: 2.2; }
     .families { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
     .family { padding: 22px 12px; border-radius: var(--radius-md); background: var(--paper-2); }
@@ -143,7 +145,7 @@
     .calendar-head { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--latin); margin-bottom: 14px; }
     .calendar-head strong { font-size: 24px; font-weight: 500; }
     .calendar-head span { color: var(--muted); letter-spacing: .15em; }
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-family: var(--latin); font-size: 16px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-family: var(--latin); font-weight: 500; font-size: 16px; }
     .calendar-grid .dow { font-size: 11px; letter-spacing: .1em; color: var(--muted); padding-bottom: 6px; }
     .calendar-grid .day { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; }
     .calendar-grid .day.is-wedding { background: var(--accent); color: var(--white); position: relative; }
@@ -189,11 +191,11 @@
 
     /* ---------- Footer ---------- */
     .footer { padding: 80px 28px 60px; text-align: center; background: var(--accent); color: var(--white); }
-    .footer-mark { margin: 0; font-family: var(--latin); font-size: 42px; font-style: italic; }
+    .footer-mark { margin: 0; font-family: var(--display); font-size: 42px; font-style: italic; }
     .footer-thanks { margin: 14px 0 30px; font-family: var(--serif); }
     .footer .pill { background: rgba(255,255,255,.16); }
     .footer .pill:hover { background: rgba(255,255,255,.26); }
-    .footer-meta { margin: 34px 0 0; font-family: var(--latin); font-size: 12px; letter-spacing: .24em; opacity: .75; }
+    .footer-meta { margin: 34px 0 0; font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; opacity: .75; }
 
     /* ---------- Lightbox / toast ---------- */
     .lightbox {
