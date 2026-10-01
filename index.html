@@ -23,7 +23,7 @@
       --line: rgba(74, 48, 54, .14);
       --white: #fff;
       --shadow: 0 24px 70px rgba(90, 50, 58, .13);
-      --radius-lg: 28px;
+      --radius-lg: 16px;
       --radius-md: 18px;
       --content-width: 520px;
       --latin: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
@@ -104,20 +104,29 @@
       content: ""; position: absolute; inset: 0;
       background: linear-gradient(180deg, rgba(74,48,54,.08) 0%, rgba(74,48,54,0) 35%, rgba(58,34,40,.45) 58%, rgba(52,30,36,.82) 100%);
     }
+    .cover-frame {
+      position: absolute; inset: 14px; z-index: 1; pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, .6); border-radius: 10px;
+    }
+    .cover-label {
+      position: absolute; top: 30px; left: 30px; z-index: 1; margin: 0;
+      font-family: var(--latin); font-size: 11px; letter-spacing: .3em; color: rgba(255, 255, 255, .9);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, .25);
+    }
     .cover-text { position: absolute; inset: auto 0 76px; z-index: 1; text-align: center; padding: 0 20px; }
     .cover-text .overline { color: rgba(255,255,255,.85); }
     .cover-names { margin: 12px 0 8px; font-family: var(--latin); font-weight: 400; font-size: clamp(46px, 14vw, 68px); line-height: 1; }
     .cover-names .amp { color: var(--blush); }
     .cover-date { margin: 0; font-family: var(--latin); letter-spacing: .28em; font-size: 14px; }
+    /* 底部與白色細框相連，從框線往上伸縮 */
     .scroll-cue {
-      position: absolute; left: 50%; bottom: 22px; z-index: 1; width: 1px; height: 38px;
-      background: rgba(255,255,255,.7); animation: scrollCue 2.2s ease-in-out infinite;
+      position: absolute; left: 50%; bottom: 14px; z-index: 1; width: 1px; height: 24px;
+      background: rgba(255, 255, 255, .6); transform-origin: bottom;
+      animation: scrollCue 2.2s ease-in-out infinite;
     }
     @keyframes scrollCue {
-      0% { transform: translateX(-50%) scaleY(0); transform-origin: top; }
-      50% { transform: translateX(-50%) scaleY(1); transform-origin: top; }
-      51% { transform-origin: bottom; }
-      100% { transform: translateX(-50%) scaleY(0); transform-origin: bottom; }
+      0%, 100% { transform: translateX(-50%) scaleY(.35); }
+      50% { transform: translateX(-50%) scaleY(1); }
     }
 
     /* ---------- Invitation ---------- */
@@ -241,6 +250,8 @@
   <main class="site-shell">
     <header class="cover" id="top">
       <img id="heroImage" src="assets/cover.jpg" alt="婚紗主視覺">
+      <div class="cover-frame" aria-hidden="true"></div>
+      <p class="cover-label">WEDDING INVITATION</p>
       <div class="cover-text">
         <p class="overline">Together with our families</p>
         <h2 class="cover-names"><span data-bind="groomEn"></span><span class="amp">&amp;</span><span data-bind="brideEn"></span></h2>
