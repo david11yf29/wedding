@@ -83,9 +83,9 @@ python3 -m venv .venv
 .venv/bin/python main.py
 ```
 
-開啟 http://localhost:8000 。改完看不到變化時，按 Cmd+Shift+R 強制重新載入。
+開啟 http://localhost:8001 。改完看不到變化時，按 Cmd+Shift+R 強制重新載入。
 
-**用手機預覽**：手機與 Mac 連同一個 Wi-Fi，開啟 `http://<Mac 的 IP>:8000`。Mac 的 IP 可用以下指令查詢：
+**用手機預覽**：手機與 Mac 連同一個 Wi-Fi，開啟 `http://<Mac 的 IP>:8001`。Mac 的 IP 可用以下指令查詢：
 
 ```bash
 ipconfig getifaddr en0
@@ -96,7 +96,7 @@ ipconfig getifaddr en0
 也可以用 Docker 執行：
 
 ```bash
-docker build -t wedding . && docker run --rm -p 8000:8000 wedding
+docker build -t wedding . && docker run --rm -p 8001:8001 wedding
 ```
 
 ## 修改流程
@@ -114,9 +114,9 @@ git checkout main && git pull
 預計部署到 AI Builder Space（Koyeb），部署管理頁面：https://space.ai-builders.com/deployments
 
 - 需要公開的 GitHub repo；照片、姓名、地址都會公開
-- 單一程序、單一 port，並讀取 `PORT` 環境變數（`main.py` 已處理，預設 8000）
+- 單一程序、單一 port，並讀取 `PORT` 環境變數（`main.py` 已處理，預設 8001）
 - API key 請放在環境變數（例如 `AI_BUILDER_API_KEY`），不要寫進 repo
-- 部署參數：`repo_url`（`https://github.com/david11yf29/wedding`）、`service_name`（即子網域，小寫英數與 `-`，3–32 字元）、`branch`（`main`）、`port`（`8000`）
+- 部署參數：`repo_url`（`https://github.com/david11yf29/wedding`）、`service_name`（即子網域，小寫英數與 `-`，3–32 字元）、`branch`（`main`）、`port`（`8001`）
 - `repo_url` 在第一次部署後會綁定 `service_name`，之後不能更換
 - 部署為非同步，約 5–10 分鐘，狀態變成 `HEALTHY` 即完成
 
