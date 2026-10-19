@@ -199,6 +199,14 @@
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
     .gallery-item:hover img { transform: scale(1.04); }
 
+    /* ---------- Video ---------- */
+    .video-frame {
+      width: min(100%, 320px); margin: 8px auto 0; display: grid; place-items: center; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden;
+      background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--line);
+    }
+    .video-frame span { font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; color: var(--muted); }
+    .video-frame iframe { width: 100%; height: 100%; border: 0; }
+
     /* ---------- Footer ---------- */
     .footer { padding: 80px 28px 60px; text-align: center; background: var(--paper-2); color: var(--ink); border-top: 1px solid var(--line); }
     .footer-mark { margin: 0; font-family: var(--display); font-size: 42px; font-style: italic; }
@@ -352,6 +360,12 @@
         <h2 class="section-title">Gallery</h2>
       </div>
       <div class="gallery reveal" id="gallery"></div>
+      <!-- YouTube 影片預留位置：之後把 <span> 換成 <iframe src="https://www.youtube.com/embed/影片ID" ...> -->
+      <div class="video-frame reveal" id="videoFrame">
+        <iframe src="https://www.youtube.com/embed/i1r_S1ZB7kk" title="Wedding video" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
     </section>
 
     <footer class="footer">
