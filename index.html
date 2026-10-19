@@ -212,6 +212,7 @@
     }
     .video-frame span { font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; color: var(--muted); }
     .video-frame iframe { width: 100%; height: 100%; border: 0; }
+    .video-link a { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
 
     /* ---------- Footer ---------- */
     .footer { padding: 80px 28px 60px; text-align: center; background: var(--paper-2); color: var(--ink); border-top: 1px solid var(--line); }
@@ -372,6 +373,8 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
+      <!-- 部分瀏覽器或外掛會擋 Referer，導致 YouTube 錯誤 153，提供備用連結 -->
+      <p class="note video-link">影片無法播放？<a href="https://www.youtube.com/shorts/i1r_S1ZB7kk" target="_blank" rel="noopener">在 YouTube 觀看</a></p>
     </section>
 
     <footer class="footer">
