@@ -207,7 +207,7 @@
 
     /* ---------- Video ---------- */
     .video-frame {
-      width: min(100%, 320px); margin: 8px auto 0; display: grid; place-items: center; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden;
+      width: 100%; margin: 8px auto 0; display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
       background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--line);
     }
     .video-frame span { font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; color: var(--muted); }
@@ -369,12 +369,12 @@
       <div class="gallery reveal" id="gallery"></div>
       <!-- YouTube 影片預留位置：之後把 <span> 換成 <iframe src="https://www.youtube.com/embed/影片ID" ...> -->
       <div class="video-frame reveal" id="videoFrame">
-        <iframe src="https://www.youtube.com/embed/i1r_S1ZB7kk" title="Wedding video" loading="lazy"
+        <iframe src="https://www.youtube.com/embed/9F8GzA-0kOo" title="Wedding video" loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       <!-- 部分瀏覽器或外掛會擋 Referer，導致 YouTube 錯誤 153，提供備用連結 -->
-      <p class="note video-link">影片無法播放？<a href="https://www.youtube.com/shorts/i1r_S1ZB7kk" target="_blank" rel="noopener">在 YouTube 觀看</a></p>
+      <p class="note video-link">影片無法播放？<a href="https://www.youtube.com/watch?v=9F8GzA-0kOo" target="_blank" rel="noopener">在 YouTube 觀看</a></p>
     </section>
 
     <footer class="footer">
