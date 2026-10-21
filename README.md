@@ -2,14 +2,16 @@
 
 單頁式電子喜帖，手機優先設計：灰白底配淡玫瑰點綴、圓體字。內容從 JSON 讀取，照片放在 `assets/`，由一個小型 FastAPI 伺服器提供網頁。
 
+線上網址：https://wedding-invitation.ai-builders.space/
+
 ## 頁面內容
 
-1. **開場**：點「開啟喜帖」進入
-2. **封面**：主視覺照片、白色細框、新人英文名、日期
+1. **開場**：點「開啟喜帖」進入；每次開啟都從封面開始（不會停在上次捲動的位置）
+2. **封面**：主視覺照片、白色細框、新人英文名、日期；照片底部有深色漸層，讓文字清楚
 3. **邀請**：邀請文案、雙方家長（框外）與新郎／新娘（框內）
 4. **日期**：月曆（標記當天）、開席／入席時間、倒數計時
 5. **場地**：場地照片標題、Google 地圖、複製地址、如何前往、行車路線、停車資訊
-6. **相簿**：6 張照片，點擊可放大
+6. **相簿**：6 張照片（點擊可放大），下方是 YouTube 影片（16:9）與「在 YouTube 觀看」備用連結
 7. **結尾**：回到頂端、分享喜帖（手機原生分享，不支援時改為複製網址）
 
 從第二個區塊開始，捲動到該區時內容會逐一由下往上進入；手機開啟「減少動態效果」時則直接顯示。
@@ -17,22 +19,22 @@
 ## 專案結構
 
 ```
-index.html                # 網頁（HTML + CSS + JS 單檔）
+index.html                # 網頁（HTML + CSS + JS 單檔），含連結預覽用的 meta 標籤
 input/inputDetailed.json  # 喜帖內容：名字、時間、地點、交通、行車、停車、分享文字
 assets/                   # 照片（會公開在 repo 上）
-  cover.jpg               # 封面（直式）
-  gallery-1 ~ 6.jpg       # 相簿；第 3、6 張為橫式，其餘直式
+  cover.jpg               # 封面（直式），也是連結預覽圖
+  gallery-1 ~ 6.jpg       # 相簿
   venue.jpg               # 「婚禮場地」標題的背景照片（橫式）
-  parking-map.jpg         # 停車位置圖（選用，目前未使用）
-main.py                   # FastAPI 靜態伺服器，提供 / 、/assets、/input，讀取 PORT 環境變數
+main.py                   # FastAPI 伺服器：/ 、/assets、/input、/health，讀取 PORT 環境變數（預設 8001）
 requirements.txt
 Dockerfile
 ```
 
-只存在本機、不會上傳的資料夾（見 `.gitignore`）：
+只存在本機、不會上傳的資料夾：
 
-- `originals/`：原尺寸照片備份
-- `.venv/`：Python 虛擬環境
+- `originals/`：原尺寸照片備份（`.gitignore`）
+- `.venv/`：Python 虛擬環境（`.gitignore`）
+- `assets/backup/`：被換掉的舊照片。**沒有**列在 `.gitignore`，`git add` 時不要加到它
 
 ## 修改內容
 
@@ -48,15 +50,31 @@ Dockerfile
 | `message` | 邀請文案，留空則使用預設文案 |
 | `venue` | 場地名稱、樓層、地址、Google Maps 連結 |
 | `transport` / `driving` / `parking` | 交通、行車路線、停車資訊，每筆有 `title` 與 `detail`；留 `[]` 則隱藏該區塊 |
-| `hasParkingMap` | 有 `assets/parking-map.jpg` 時設為 `true` |
+| `hasParkingMap` | 有 `assets/parking-map.jpg` 時設為 `true`（目前沒有這張圖，設為 `false`） |
 | `share` | 分享喜帖時帶出的標題與文字 |
 
 注意 JSON 格式：字串要用雙引號、項目之間要有逗號、最後一項後面不能有逗號。格式錯誤時頁面會改用預設內容，可在瀏覽器主控台看到警告。
 
+### 連結預覽（LINE、Messenger 等）
+
+預覽不會執行 JS，所以不會讀 JSON。標題、描述、網址與預覽圖直接寫在 `index.html` 開頭的 `<meta>`（`og:title`、`og:description`、`og:url`、`og:image`）。改名字或網址時要一起改。
+
+LINE、FB 會快取預覽，改完後可能要一段時間才會更新。
+
 ### 照片
 
-- 以相同檔名替換 `assets/` 裡的檔案。建議長邊約 1800px，以加快載入速度；原圖可放在 `originals/` 備份。
-- **相簿張數與橫幅位置**：修改 `index.html` 中的 `GALLERY` 與 `WIDE_GALLERY_INDEXES`。
+- 以相同檔名替換 `assets/` 裡的檔案。建議長邊約 1800px，以加快載入速度；原圖可放在 `originals/` 或 `assets/backup/` 備份。
+- **相簿張數與橫幅位置**：修改 `index.html` 中的 `GALLERY` 與 `WIDE_GALLERY_INDEXES`。目前第 3、6 張為橫幅（跨兩欄），其餘以直式比例裁切、兩兩一排。
+- **封面底部漸層**：`index.html` 中的 `.cover::after`。目前 0–40% 透明（保留臉部），往下逐漸加深到底部 0.96，用來遮住照片下方的桌子並讓文字清楚。換封面照片時可能需要調整。
+
+### YouTube 影片
+
+在 `index.html` 搜尋 `videoFrame`，兩個地方要一起改：
+
+- `<iframe src="https://www.youtube.com/embed/影片ID">`：內嵌播放器
+- 下方「在 YouTube 觀看」的連結：`https://www.youtube.com/watch?v=影片ID`。部分瀏覽器或外掛會擋 Referer，導致 YouTube 錯誤 153，這時用這個連結觀看
+
+影片框比例在 `.video-frame` 的 `aspect-ratio`：目前是橫式 `16 / 9`。如果換成直式的 Shorts，改回 `9 / 16` 並把寬度限制在約 `320px`。
 
 ### 配色與字體
 
@@ -109,18 +127,38 @@ docker build -t wedding . && docker run --rm -p 8001:8001 wedding
 git checkout main && git pull
 ```
 
+4. 重新部署（見下方）。合併到 `main` **不會**自動部署
+
 ## 部署
 
-預計部署到 AI Builder Space（Koyeb），部署管理頁面：https://space.ai-builders.com/deployments
+部署在 AI Builder Space（Koyeb），從 GitHub 的 `main` 分支建置。部署管理頁面：https://space.ai-builders.com/deployments （只能查看狀態，沒有重新部署按鈕）
 
-- 需要公開的 GitHub repo；照片、姓名、地址都會公開
-- 單一程序、單一 port，並讀取 `PORT` 環境變數（`main.py` 已處理，預設 8001）
-- API key 請放在環境變數（例如 `AI_BUILDER_API_KEY`），不要寫進 repo
-- 部署參數：`repo_url`（`https://github.com/david11yf29/wedding`）、`service_name`（即子網域，小寫英數與 `-`，3–32 字元）、`branch`（`main`）、`port`（`8001`）
-- `repo_url` 在第一次部署後會綁定 `service_name`，之後不能更換
-- 部署為非同步，約 5–10 分鐘，狀態變成 `HEALTHY` 即完成
+| 參數 | 值 |
+|---|---|
+| `repo_url` | `https://github.com/david11yf29/wedding`（已綁定 `service_name`，不能更換） |
+| `service_name` | `wedding-invitation`（即子網域） |
+| `branch` | `main` |
+| `port` | `8001` |
+
+重新部署要用 API 金鑰（在 AI Builder Space 的 Settings 產生）。金鑰放在環境變數 `AI_BUILDER_API_KEY`，不要寫進 repo，也不要貼到聊天或文件裡。
+
+```bash
+curl -X POST "https://space.ai-builders.com/backend/v1/deployments" -H "Authorization: Bearer $AI_BUILDER_API_KEY" -H "Content-Type: application/json" -d '{"repo_url":"https://github.com/david11yf29/wedding","service_name":"wedding-invitation","branch":"main","port":8001}'
+```
+
+回應 `202` 且狀態為 `queued` 即已排入。查看進度（`queued` → `deploying` → `HEALTHY`）：
+
+```bash
+curl -s -H "Authorization: Bearer $AI_BUILDER_API_KEY" "https://space.ai-builders.com/backend/v1/deployments/wedding-invitation"
+```
+
+- 實際約 1 分鐘就會變成 `HEALTHY`
+- 需要公開的 GitHub repo；照片、姓名、地址都會公開（網頁有 `noindex`，不會被搜尋引擎收錄）
+- 單一程序、單一 port，並讀取 `PORT` 環境變數
+- 每位使用者最多 2 個服務；免費託管至 2027-10-19
 
 ## 參考
 
 - 版面架構參考同事的電子喜帖：https://wedding-invitation.mouse31620.workers.dev/
 - AI Builder API 文件：https://www.ai-builders.com/resources/students-backend/openapi.json
+- 部署到 AI Builder：https://space.ai-builders.com/deployments 
