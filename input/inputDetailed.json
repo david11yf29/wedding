@@ -11,8 +11,8 @@
     "hasParkingMap": "有停車位置圖（assets/parking-map.jpg）填 true，沒有填 false",
     "share": "按下「分享喜帖」時帶出的標題與文字"
   },
-  "weddingDate": "2026-12-12T12:00",
-  "seatingTime": "11:30 AM",
+  "weddingDate": "2026-12-12T12:30",
+  "seatingTime": "12:00 PM",
   "groom": {
     "en": "David",
     "zh": "林沅融",
