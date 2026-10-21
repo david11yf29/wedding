@@ -591,8 +591,11 @@
 
       // ---------- 開場 ----------
       const entrance = $("#entrance");
+      // 每次開啟都從封面開始：關掉瀏覽器重新整理時的捲動位置記憶
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
       document.body.style.overflow = "hidden";
       $("#openInvitation").addEventListener("click", () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         entrance.classList.add("is-hidden");
         document.body.style.overflow = "";
       });
