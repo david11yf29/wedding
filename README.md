@@ -25,6 +25,7 @@ assets/                   # 照片（會公開在 repo 上）
   cover.jpg               # 封面（直式），也是連結預覽圖
   gallery-1 ~ 6.jpg       # 相簿
   venue.jpg               # 「婚禮場地」標題的背景照片（橫式）
+  backup/                 # 被換掉的舊照片與原尺寸照片（隨機檔名）；在 repo 裡，但不會部署
 main.py                   # FastAPI 伺服器：/ 、/assets、/input、/health，讀取 PORT 環境變數（預設 8001）
 requirements.txt
 Dockerfile
@@ -34,7 +35,8 @@ Dockerfile
 
 - `originals/`：原尺寸照片備份（`.gitignore`）
 - `.venv/`：Python 虛擬環境（`.gitignore`）
-- `assets/backup/`：被換掉的舊照片。**沒有**列在 `.gitignore`，`git add` 時不要加到它
+
+`assets/backup/` 會上傳到 GitHub（公開），但列在 `.dockerignore`，不會包進部署，網站上也打不開。
 
 ## 修改內容
 
