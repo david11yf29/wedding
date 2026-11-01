@@ -11,7 +11,7 @@
 3. **邀請**：邀請文案、雙方家長（框外）與新郎／新娘（框內）
 4. **日期**：月曆（標記當天）、開席／入席時間、倒數計時
 5. **場地**：場地照片標題、Google 地圖、複製地址、如何前往、行車路線、停車資訊
-6. **相簿**：6 張照片（點擊可放大），下方是 YouTube 影片（16:9）與「在 YouTube 觀看」備用連結
+6. **相簿**：6 張照片（點擊可放大），下方是 YouTube 影片（16:9）與 YouTube Shorts（9:16），各有「在 YouTube 觀看」備用連結；影片捲到畫面中會靜音自動播放，滑走就暫停
 7. **結尾**：回到頂端、分享喜帖（手機原生分享，不支援時改為複製網址）
 
 從第二個區塊開始，捲動到該區時內容會逐一由下往上進入；手機開啟「減少動態效果」時則直接顯示。
@@ -76,7 +76,11 @@ LINE、FB 會快取預覽，改完後可能要一段時間才會更新。
 - `<iframe src="https://www.youtube.com/embed/影片ID">`：內嵌播放器
 - 下方「在 YouTube 觀看」的連結：`https://www.youtube.com/watch?v=影片ID`。部分瀏覽器或外掛會擋 Referer，導致 YouTube 錯誤 153，這時用這個連結觀看
 
-影片框比例在 `.video-frame` 的 `aspect-ratio`：目前是橫式 `16 / 9`。如果換成直式的 Shorts，改回 `9 / 16` 並把寬度限制在約 `320px`。
+Shorts 在 `shortsFrame`，同樣兩處要一起改，備用連結格式是 `https://www.youtube.com/shorts/影片ID`。
+
+每個 iframe 網址後面的 `?enablejsapi=1&mute=1&playsinline=1` 要保留，捲動自動播放需要它。外框加上 `js-autoplay-video` class 就會套用捲動播放。
+
+影片框比例在 `.video-frame` 的 `aspect-ratio`：橫式 `16 / 9`；加上 `is-vertical` class 會變成直式 `9 / 16`、寬度上限 `320px`。
 
 ### 配色與字體
 

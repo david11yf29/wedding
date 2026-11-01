@@ -212,6 +212,7 @@
     }
     .video-frame span { font-family: var(--latin); font-weight: 600; font-size: 12px; letter-spacing: .24em; color: var(--muted); }
     .video-frame iframe { width: 100%; height: 100%; border: 0; }
+    .video-frame.is-vertical { max-width: 320px; aspect-ratio: 9 / 16; }
     .video-link a { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
 
     /* ---------- Footer ---------- */
@@ -368,13 +369,20 @@
       </div>
       <div class="gallery reveal" id="gallery"></div>
       <!-- YouTube 影片：換影片時，iframe 的 embed/影片ID 與下方備用連結的 watch?v=影片ID 要一起改 -->
-      <div class="video-frame reveal" id="videoFrame">
-        <iframe src="https://www.youtube.com/embed/9F8GzA-0kOo" title="Wedding video" loading="lazy"
+      <div class="video-frame reveal js-autoplay-video" id="videoFrame">
+        <iframe src="https://www.youtube.com/embed/9F8GzA-0kOo?enablejsapi=1&mute=1&playsinline=1" title="Wedding video" loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       <!-- 部分瀏覽器或外掛會擋 Referer，導致 YouTube 錯誤 153，提供備用連結 -->
       <p class="note video-link">影片無法播放？<a href="https://www.youtube.com/watch?v=9F8GzA-0kOo" target="_blank" rel="noopener">在 YouTube 觀看</a></p>
+      <!-- YouTube Shorts（直式）：換影片時，iframe 的 embed/影片ID 與下方備用連結的 shorts/影片ID 要一起改 -->
+      <div class="video-frame is-vertical reveal js-autoplay-video" id="shortsFrame">
+        <iframe src="https://www.youtube.com/embed/FRXyEcQmMXc?enablejsapi=1&mute=1&playsinline=1" title="Wedding short video" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <p class="note video-link">影片無法播放？<a href="https://www.youtube.com/shorts/FRXyEcQmMXc" target="_blank" rel="noopener">在 YouTube 觀看</a></p>
     </section>
 
     <footer class="footer">
@@ -620,6 +628,34 @@
         revealElements.forEach((element) => observer.observe(element));
       } else {
         revealElements.forEach((element) => element.classList.add("is-visible"));
+      }
+
+      // ---------- 影片：捲到畫面中才播放，滑走就暫停（瀏覽器只允許靜音自動播放） ----------
+      const autoplayVideos = $$(".js-autoplay-video").map((frame) => ({ frame, player: null, ready: false, visible: false }));
+      if ("IntersectionObserver" in window && autoplayVideos.length) {
+        const syncVideo = (video) => {
+          if (!video.ready) return;
+          if (video.visible) video.player.playVideo();
+          else video.player.pauseVideo();
+        };
+        window.onYouTubeIframeAPIReady = () => {
+          autoplayVideos.forEach((video) => {
+            video.player = new YT.Player($("iframe", video.frame), {
+              events: { onReady: () => { video.player.mute(); video.ready = true; syncVideo(video); } }
+            });
+          });
+        };
+        const apiScript = document.createElement("script");
+        apiScript.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(apiScript);
+        const videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const video = autoplayVideos.find((item) => item.frame === entry.target);
+            video.visible = entry.isIntersecting;
+            syncVideo(video);
+          });
+        }, { threshold: .6 });
+        autoplayVideos.forEach((video) => videoObserver.observe(video.frame));
       }
 
       // ---------- 倒數 ----------
