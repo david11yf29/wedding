@@ -191,6 +191,9 @@
     .info-card + .info-card { margin-top: 10px; }
     .info-card strong { display: block; color: var(--ink); font-weight: 500; }
     .info-card p { margin: 2px 0 0; color: var(--muted); white-space: pre-line; }
+    /* Quicksand 400 比 Huninn 細；英數字改用 600，中文字型只有 400，關閉 font-synthesis 避免中文被假粗體 */
+    .info-card p:not(.info-sub) { font-weight: 600; font-synthesis: none; }
+    .info-card .info-sub { margin: 2px 0 6px; font-size: .85em; color: var(--accent-dark); }
     .parking-map-button { display: block; width: 100%; margin-top: 16px; padding: 0; border: 0; border-radius: var(--radius-md); overflow: hidden; position: relative; background: none; }
     .parking-map-button span {
       position: absolute; right: 10px; bottom: 10px; padding: 2px 12px; border-radius: 999px;
@@ -347,6 +350,10 @@
         <h3>如何前往</h3>
         <div id="transportList"></div>
       </div>
+      <div class="info-block reveal" id="taxiBlock">
+        <h3>計程車</h3>
+        <div id="taxiList"></div>
+      </div>
       <div class="info-block reveal" id="drivingBlock">
         <h3>行車路線</h3>
         <div id="drivingList"></div>
@@ -416,6 +423,7 @@
         message: "無數個平凡的日子，累積成最珍貴的時光。\n我們決定牽起彼此的手，走向人生新的篇章，\n誠摯邀請您，一同見證這份幸福。",
         venue: { name: "婚宴會館名稱", hall: "", address: "", addressNote: "", mapUrl: "" },
         transport: [],
+        taxi: [],
         driving: [],
         parking: [],
         hasParkingMap: false,
@@ -457,6 +465,7 @@
         message: pick(input.message, DEFAULTS.message),
         venue: Object.fromEntries(Object.keys(DEFAULTS.venue).map((k) => [k, pick(input.venue?.[k], DEFAULTS.venue[k])])),
         transport: (input.transport ?? DEFAULTS.transport).filter((item) => item.detail),
+        taxi: (input.taxi ?? DEFAULTS.taxi).filter((item) => item.title || item.detail),
         driving: (input.driving ?? DEFAULTS.driving).filter((item) => item.detail),
         parking: (input.parking ?? DEFAULTS.parking)
           .map((item) => (typeof item === "string" ? { title: item, detail: "" } : item))
@@ -533,14 +542,19 @@
         .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;").replaceAll("'", "&#39;");
 
-      const infoCards = (items) => items.map(({ title, detail }) =>
-        `<div class="info-card"><strong>${escapeHtml(title ?? "")}</strong>${detail ? `<p>${escapeHtml(detail)}</p>` : ""}</div>`
+      const infoCards = (items) => items.map(({ title, subtitle, detail }) =>
+        `<div class="info-card"><strong>${escapeHtml(title ?? "")}</strong>${subtitle ? `<p class="info-sub">${escapeHtml(subtitle)}</p>` : ""}${detail ? `<p>${escapeHtml(detail)}</p>` : ""}</div>`
       ).join("");
 
       if (CONFIG.transport.length) {
         $("#transportList").innerHTML = infoCards(CONFIG.transport);
       } else {
         $("#transportBlock").remove();
+      }
+      if (CONFIG.taxi.length) {
+        $("#taxiList").innerHTML = infoCards(CONFIG.taxi);
+      } else {
+        $("#taxiBlock").remove();
       }
       if (CONFIG.driving.length) {
         $("#drivingList").innerHTML = infoCards(CONFIG.driving);
