@@ -193,6 +193,8 @@
     .info-card p { margin: 2px 0 0; color: var(--muted); white-space: pre-line; }
     /* Quicksand 400 比 Huninn 細；英數字改用 600，中文字型只有 400，關閉 font-synthesis 避免中文被假粗體 */
     .info-card p:not(.info-sub) { font-weight: 600; font-synthesis: none; }
+    /* detail 內用 **文字** 標記重點；Huninn 只有一種粗細，需允許瀏覽器合成粗體 */
+    .info-card .info-em { font-weight: 700; font-synthesis: weight; color: var(--ink); }
     .info-card .info-sub { margin: 2px 0 6px; font-size: .85em; color: var(--accent-dark); }
     .parking-map-button { display: block; width: 100%; margin-top: 16px; padding: 0; border: 0; border-radius: var(--radius-md); overflow: hidden; position: relative; background: none; }
     .parking-map-button span {
@@ -542,8 +544,10 @@
         .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;").replaceAll("'", "&#39;");
 
+      // **文字** 顯示為粗體
+      const richText = (value) => escapeHtml(value).replace(/\*\*(.+?)\*\*/g, '<b class="info-em">$1</b>');
       const infoCards = (items) => items.map(({ title, subtitle, detail }) =>
-        `<div class="info-card"><strong>${escapeHtml(title ?? "")}</strong>${subtitle ? `<p class="info-sub">${escapeHtml(subtitle)}</p>` : ""}${detail ? `<p>${escapeHtml(detail)}</p>` : ""}</div>`
+        `<div class="info-card"><strong>${richText(title ?? "")}</strong>${subtitle ? `<p class="info-sub">${escapeHtml(subtitle)}</p>` : ""}${detail ? `<p>${richText(detail)}</p>` : ""}</div>`
       ).join("");
 
       if (CONFIG.transport.length) {

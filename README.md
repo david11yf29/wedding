@@ -51,7 +51,7 @@ Dockerfile
 | `groom` / `bride` | `en` 英文名、`zh` 中文名、`parents` 家長姓名 |
 | `message` | 邀請文案，留空則使用預設文案 |
 | `venue` | 場地名稱、樓層、地址、Google Maps 連結 |
-| `transport` / `taxi` / `driving` / `parking` | 交通、計程車、行車路線、停車資訊，每筆有 `title` 與 `detail`，可選填 `subtitle`（標題下方的小字，例如發車時間）；留 `[]` 則隱藏該區塊 |
+| `transport` / `taxi` / `driving` / `parking` | 交通、計程車、行車路線、停車資訊，每筆有 `title` 與 `detail`，可選填 `subtitle`（標題下方的小字，例如發車時間）；`title`、`detail` 內用 `**文字**` 可加粗；留 `[]` 則隱藏該區塊 |
 | `hasParkingMap` | 有 `assets/parking-map.jpg` 時設為 `true`（目前沒有這張圖，設為 `false`） |
 | `share` | 分享喜帖時帶出的標題與文字 |
 
