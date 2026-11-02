@@ -8,6 +8,17 @@ from fastapi.staticfiles import StaticFiles
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+
+
+# 網頁與 JSON 每次都向伺服器確認是否有新版（沒變時只回 304），避免手機瀏覽器顯示舊版
+@app.middleware("http")
+async def no_cache_pages(request, call_next):
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/input/"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 app.mount("/assets", StaticFiles(directory=os.path.join(BASE_DIR, "assets")), name="assets")
 app.mount("/input", StaticFiles(directory=os.path.join(BASE_DIR, "input")), name="input")
 
